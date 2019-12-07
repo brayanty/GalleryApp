@@ -1,18 +1,38 @@
 import "./App.css";
 import Navbar from "./components/navbar/nav";
-import Hero from "./components/hero/hero";
-import Main from "./components/main/main";
-import News from "./components/news/news";
+import ViewImagen from "./components/viewImagen/viewImagen";
+import MainImgs from "./components/main/main";
 import Footer from "./components/footer/footer";
+import { useDarkLightMode } from "./components/logic/darkMode";
+import { useState } from "react";
 function App() {
+  const [theme, setTheme] = useDarkLightMode();
+  const [imagenSelect, setimagenSelect] = useState(" ");
+  const handlerClickDark = () => {
+    if (theme === "dark") {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
+  };
+
+  const handlerImagenSelect = (img) => {
+    setimagenSelect(img);
+  };
+
   return (
     <>
-      <Navbar className="container flex justify-center" />
-      <Hero />
-      <div className="grid grid-cols-5">
-        <Main className="col-span-4" />
-        <News className="col-span-1" />
-      </div>
+      <Navbar
+        className="relative bg-slate-200 dark:bg-slate-900 "
+        theme={theme}
+        handlerClickDark={handlerClickDark}
+      />
+      <ViewImagen imagenSelect={imagenSelect} />
+      <MainImgs
+        handlerSelect={handlerImagenSelect}
+        tags={imagenSelect.tags}
+        items={"items"}
+      />
       <Footer />
     </>
   );

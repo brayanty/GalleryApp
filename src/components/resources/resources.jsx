@@ -62,7 +62,9 @@ export function RenderCard({ foto, index, handlerClick }) {
             </figure>
             <header className="dark:text-white">
               <h4 className="font-primaryMedium text-sm">Brayan Palacios</h4>
-              <div className="font-primaryRegular text-xs">Artistas</div>
+              <div className="font-primaryRegular text-xs text-textSubTitleLight dark:text-WitherDark">
+                Artistas
+              </div>
             </header>
           </div>
           <div>

@@ -1,46 +1,69 @@
 import fotos from "../../imgs";
 import { useRef, useState } from "react";
-import {
-  RenderCard,
-  RenderModalView,
-  RenderSearch,
-} from "./components/resources.jsx";
+import { RenderCard } from "../resources/resources.jsx";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
 
-function Main() {
-  const [imagenSelect, setImagenSelect] = useState(" ");
-  const [openImagenSelect, setOpenImagenSelect] = useState(false);
+MainImgs.propTypes = {
+  handlerSelect: PropTypes.func.isRequired,
+  tags: PropTypes.array,
+};
+
+function MainImgs({ handlerSelect, tags }) {
+  const [indexTotal, setIndexCurrent] = useState(10);
+  const [tagsSelect, setTagsSelect] = useState(null);
   const refMain = useRef();
+
+  useEffect(() => {
+    window.addEventListener("scroll", function () {
+      // Altura total del documento
+      let scrollHeight = document.documentElement.scrollHeight;
+      // Altura visible de la ventana
+      let clientHeight = document.documentElement.clientHeight;
+      // Posición actual del scroll
+      let scrollTop = document.documentElement.scrollTop;
+
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setIndexCurrent((p) => {
+          return p + 7;
+        });
+      }
+    });
+  }, []);
 
   const handlerClick = (index) => {
     const img = {
       title: fotos[index].title,
       src: fotos[index].src,
       alt: fotos[index].alt,
+      tags: fotos[index].tags,
     };
 
-    setImagenSelect(img);
-    setOpenImagenSelect(true);
+    handlerSelect(img);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
-  const handlerClose = () => {
-    setOpenImagenSelect(false);
-    setTimeout(() => {
-      setImagenSelect(" ");
-    }, 150);
+  const handlerTagsSelect = (e) => {
+    setTagsSelect(e.target.innerText);
   };
 
   return (
-    <main className="container mx-auto flex flex-col gap-3">
-      <div className="flex justify-center">
-        {/* Search bar */}
-        <RenderSearch />
-      </div>
+    <main className="flex flex-col gap-3 p-2">
       <div className="flex flex-col gap-2" ref={refMain}>
-        <div className="flex flex-row gap-2">
-          {["Waifus", "Venom", "loquesea"].map((item) => {
+        <div className="flex flex-row gap-4">
+          {tags?.map((item) => {
             return (
               <div
-                className="cursor-pointer transition-all dark:text-white dark:hover:text-black font-primarybold hover:bg-slate-400 p-2 rounded-lg bg-neutral-500/30 backdrop-blur-sm"
+                onClick={(e) => {
+                  handlerTagsSelect(e);
+                }}
+                className={`${
+                  tagsSelect == item ? "text-Blue dark:text-Blueclaro" : ""
+                } cursor-pointer transition-all dark:text-white dark:hover:text-Blue font-primarybold`}
                 key={item}
               >
                 {item}
@@ -48,28 +71,19 @@ function Main() {
             );
           })}
         </div>
-        <div className="grid grid-cols-1 grid-rows-4  md:grid-cols-[repeat(4,minmax(240px,1fr))] md:grid-rows-[repeat(auto-fill,minmax(200px,1fr))] gap-2">
-          {fotos.map((foto, index) => {
-            return (
-              <RenderCard
-                key={foto.id}
-                foto={foto}
-                index={index}
-                handlerClick={handlerClick}
-              />
-            );
-          })}
+        <div className="p-1 grid grid-cols-[repeat(2,minmax(240px,1fr))] grid-rows-[repeat(auto-fill,minmax(200px,1fr))] md:grid-cols-[repeat(5,minmax(240px,1fr))] md:grid-rows-[repeat(auto-fill,minmax(200px,1fr))] gap-3">
+          {fotos.slice(0, indexTotal).map((foto, index) => (
+            <RenderCard
+              foto={foto}
+              index={index}
+              key={index}
+              handlerClick={handlerClick}
+            />
+          ))}
         </div>
       </div>
-      {
-        <RenderModalView
-          openImagenSelect={openImagenSelect}
-          imagenSelect={imagenSelect}
-          handlerClose={handlerClose}
-        />
-      }
     </main>
   );
 }
 
-export default Main;
+export default MainImgs;

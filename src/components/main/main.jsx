@@ -1,112 +1,73 @@
-import PropTypes from "prop-types";
 import fotos from "../../imgs";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClose } from "@fortawesome/free-solid-svg-icons";
-import { faCode } from "@fortawesome/free-solid-svg-icons/faCode";
+import { useRef, useState } from "react";
+import {
+  RenderCard,
+  RenderModalView,
+  RenderSearch,
+} from "./components/resources.jsx";
 
-Main.propTypes = {
-  className: PropTypes.string.isRequired,
-};
-function Main({ className }) {
-  const [imagenSelect, setImagenSelect] = useState(null);
-  const [openImagenSelect, setOpenImagenSelect] = useState(null);
+function Main() {
+  const [imagenSelect, setImagenSelect] = useState(" ");
+  const [openImagenSelect, setOpenImagenSelect] = useState(false);
+  const refMain = useRef();
 
-  const handlerClick = (e) => {
+  const handlerClick = (index) => {
+    const img = {
+      title: fotos[index].title,
+      src: fotos[index].src,
+      alt: fotos[index].alt,
+    };
+
+    setImagenSelect(img);
     setOpenImagenSelect(true);
-    setImagenSelect({
-      src: e.target.currentSrc,
-    });
-    if (e.target.currentSrc == "") {
-      return;
-    }
   };
 
   const handlerClose = () => {
     setOpenImagenSelect(false);
+    setTimeout(() => {
+      setImagenSelect(" ");
+    }, 150);
   };
+
   return (
-    <main className={className}>
-      <div className="grid container mx-auto  md:grid-cols-[repeat(3,minmax(300px,1fr))] grid-rows-[repeat(auto-fit,minmax(200px,1fr))] gap-2">
-        {fotos.map((foto, index) => {
-          return (
-            <div
-              className={`${
-                index % 2 === 0 ? "md:row-span-2" : "md:row-span-3"
-              } flex items-center justify-center relative`}
-              key={foto.id}
-            >
-              <figure
-                onClick={(e) => {
-                  handlerClick(e);
-                }}
-                className="h-full w-full cursor-pointer"
-              >
-                <img
-                  className="w-full h-full object-cover object-right-top"
-                  src={foto.src}
-                  alt={foto.alt}
-                />
-              </figure>
-              <div className="absolute flex flex-col opacity-0 hover:opacity-100  bg-slate-400/60 w-full justify-center items-center bottom-0">
-                <header className="flex flex-col p-1 items-center">
-                  <h5 className="text-white">{foto.alt}</h5>
-                  <div className="flex gap-1 items-center">
-                    <div>
-                      <FontAwesomeIcon icon={faCode} size="2x" />
-                    </div>
-                    <button className="p-1 rounded-sm font-primarybold  bg-green-600">
-                      Donwload
-                    </button>
-                  </div>
-                </header>
-              </div>
-            </div>
-          );
-        })}
+    <main className="container mx-auto flex flex-col gap-3">
+      <div className="flex justify-center">
+        {/* Search bar */}
+        <RenderSearch />
       </div>
-      {openImagenSelect && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            bottom: 0,
-            right: 0,
-            left: 0,
-          }}
-          className={`${
-            openImagenSelect ? "opacity-100" : "opacity-0"
-          } transition-all  w-full h-full  flex flex-col justify-center items-center bg-slate-500/70 `}
-        >
-          <div className="relative w-[75%] h-[90vh] flex gap-1 flex-col bg-slate-100 border-2 border-gray-800 rounded-lg  p-5 pr-6">
-            <button
-              className="w-0 h-0"
-              onClick={() => {
-                handlerClose();
-              }}
-            >
-              <FontAwesomeIcon
-                className="absolute top-2 right-2 "
-                icon={faClose}
-                size="2x"
-              />
-            </button>
-            <figure className="p-4 w-full h-full overflow-hidden ">
-              <img
-                className="w-full h-full object-cover object-top max-md:object-fill"
-                src={imagenSelect.src}
-                alt={imagenSelect.alt}
-              />
-            </figure>
-            <header className="flex justify-between">
-              <h3 className="font-primaryMedium text-2xl text-black">
-                {imagenSelect.alt}
-              </h3>
-              <button className="p-2 bg-green-600">Donwload</button>
-            </header>
-          </div>
+      <div className="flex flex-col gap-2" ref={refMain}>
+        <div className="flex flex-row gap-2">
+          {["Waifus", "Venom", "loquesea"].map((item) => {
+            return (
+              <div
+                className="cursor-pointer transition-all dark:text-white dark:hover:text-black font-primarybold hover:bg-slate-400 p-2 rounded-lg bg-neutral-500/30 backdrop-blur-sm"
+                key={item}
+              >
+                {item}
+              </div>
+            );
+          })}
         </div>
-      )}
+        <div className="grid grid-cols-1 grid-rows-4  md:grid-cols-[repeat(4,minmax(240px,1fr))] md:grid-rows-[repeat(auto-fill,minmax(200px,1fr))] gap-2">
+          {fotos.map((foto, index) => {
+            return (
+              <RenderCard
+                key={foto.id}
+                foto={foto}
+                index={index}
+                handlerClick={handlerClick}
+              />
+            );
+          })}
+        </div>
+      </div>
+      {
+        <RenderModalView
+          openImagenSelect={openImagenSelect}
+          imagenSelect={imagenSelect}
+          handlerClose={handlerClose}
+        />
+      }
     </main>
   );
 }

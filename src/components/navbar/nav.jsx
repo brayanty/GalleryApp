@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { useRef, useState } from "react";
+import { RenderSearch } from "../resources/resources";
 
 Navbar.propTypes = {
   className: PropTypes.string.isRequired,
@@ -20,8 +21,18 @@ function Navbar({ className, handlerClickDark, theme }) {
   const [navOpen, setNavOpen] = useState(false);
   const navRef = useRef(null);
   const itemsNavbar = [
-    { title: "Home", logo: faHome, href: "#home", id: "dGhG43GDAF" },
-    { title: "About us", logo: faUsers, href: "#about", id: "dGgrpóekgw4" },
+    {
+      title: "Home",
+      logo: faHome,
+      href: "#home",
+      id: (Math.random() * 100).toString(36).slice(3),
+    },
+    {
+      title: "About us",
+      logo: faUsers,
+      href: "#about",
+      id: (Math.random() * 100).toString(36).slice(3),
+    },
   ];
 
   const handlerClickNav = () => {
@@ -34,12 +45,13 @@ function Navbar({ className, handlerClickDark, theme }) {
         <div>
           <h4 className="text-lg">Gallery-APP</h4>
         </div>
+        <RenderSearch />
         <div
           className={`${
             navOpen == true
-              ? "max-md:opacity-100"
+              ? "max-md:opacity-100 z-30"
               : "max-md:opacity-0 max-md:-z-10"
-          } transition-opacity duration-300 ease-in-out max-md:absolute max-md:py-5 max-md:pb-3 max-md:bg-slate-200 max-md:dark:bg-slate-900 top-[4em] right-0 left-0 max-md:flex-col flex flex-row gap-3`}
+          } transition-opacity duration-300 ease-in-out max-md:absolute max-md:py-5 max-md:pb-3 max-md:bg-slate-200/90 max-md:dark:bg-slate-900/70 backdrop-blur-sm top-[47px] right-0 left-0 max-md:flex-col flex flex-row gap-3`}
         >
           <ul className="max-md:flex-col flex flex-row gap-4 justify-center items-center">
             {itemsNavbar.map((items) => {

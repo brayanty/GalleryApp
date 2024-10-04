@@ -78,7 +78,7 @@ export function RenderCard({ foto, index, handlerClick }) {
 
 export function RenderSearch() {
   return (
-    <div className="w-full max-w-[453px] inline-block">
+    <div className="w-full max-w-[600px] inline-block">
       <form
         method="get"
         id="formSearch"

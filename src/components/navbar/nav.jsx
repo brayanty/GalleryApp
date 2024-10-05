@@ -8,8 +8,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { RenderSearch } from "../resources/resources";
+import { useMenu } from "../resources/useCustom.js";
 
 Navbar.propTypes = {
   className: PropTypes.string.isRequired,
@@ -17,9 +18,9 @@ Navbar.propTypes = {
   theme: PropTypes.string.isRequired,
 };
 
-function Navbar({ className, handlerClickDark, theme }) {
+function Navbar({ handlerClickDark, theme }) {
+  const [isMenuOpen, setIsMenuOpen, menuRef] = useMenu();
   const [navOpen, setNavOpen] = useState(false);
-  const navRef = useRef(null);
   const itemsNavbar = [
     {
       title: "Home",
@@ -35,23 +36,27 @@ function Navbar({ className, handlerClickDark, theme }) {
     },
   ];
 
+  const menuVisible = () => {
+    setIsMenuOpen((prenVent) => !prenVent);
+  };
   const handlerClickNav = () => {
     setNavOpen((prenVent) => !prenVent);
   };
 
   return (
-    <nav ref={navRef} className={className}>
+    <nav className="bg-slate-200 dark:bg-slate-900">
       <div className="font-primarybold p-3 text-slate-800 dark:text-white flex flex-row justify-between items-center">
         <div>
           <h4 className="text-lg">Gallery-APP</h4>
         </div>
         <RenderSearch />
         <div
+          ref={menuRef}
           className={`${
             navOpen == true
-              ? "max-md:opacity-100 z-30"
+              ? "max-md:opacity-100 max-md:z-50"
               : "max-md:opacity-0 max-md:-z-10"
-          } transition-opacity duration-300 ease-in-out max-md:absolute max-md:py-5 max-md:pb-3 max-md:bg-slate-200/90 max-md:dark:bg-slate-900/70 backdrop-blur-sm top-[47px] right-0 left-0 max-md:flex-col flex flex-row gap-3`}
+          } md:z-50 transition-opacity duration-300 ease-in-out max-md:absolute max-md:py-5 max-md:pb-3 max-md:bg-slate-200/90 max-md:dark:bg-slate-900/70 backdrop-blur-sm top-[70px] right-0 left-0 max-md:flex-col flex flex-row gap-3`}
         >
           <ul className="max-md:flex-col flex flex-row gap-4 justify-center items-center">
             {itemsNavbar.map((items) => {
@@ -81,10 +86,33 @@ function Navbar({ className, handlerClickDark, theme }) {
                 )}
               </button>
             </li>
-            <li className="">
-              <a className="p-3 bg-slate-300/40 rounded-full" href="#user">
+            <li className="relative">
+              <a
+                onClick={() => {
+                  menuVisible();
+                }}
+                className="p-3 bg-slate-300/40 rounded-full"
+                href="#user"
+              >
                 <FontAwesomeIcon icon={faUser} size="lg" />
               </a>
+              <div
+                className={`${
+                  isMenuOpen ? " top-10 z-50 " : "-top-[1000px] "
+                } absolute md:right-10 transition-all ease-in-out duration-200 font-semibold bg-slate-500 backdrop-blur-sm w-32 shadow-lg rounded-md p-2`}
+              >
+                <ul className=" flex flex-col ">
+                  <li className="hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
+                    Login
+                  </li>
+                  <li className="hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
+                    Settings
+                  </li>
+                  <li className="hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
+                    Subir
+                  </li>
+                </ul>
+              </div>
             </li>
           </ul>
         </div>

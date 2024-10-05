@@ -10,15 +10,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { RenderSearch } from "../resources/resources";
-import { useMenu } from "../resources/useCustom.js";
+import { useMenu } from "./useCustom.js";
 
 Navbar.propTypes = {
-  className: PropTypes.string.isRequired,
   handlerClickDark: PropTypes.func.isRequired,
   theme: PropTypes.string.isRequired,
+  handlerLogin: PropTypes.func.isRequired,
 };
 
-function Navbar({ handlerClickDark, theme }) {
+function Navbar({ handlerClickDark, theme, handlerLogin }) {
   const [isMenuOpen, setIsMenuOpen, menuRef] = useMenu();
   const [navOpen, setNavOpen] = useState(false);
   const itemsNavbar = [
@@ -87,28 +87,33 @@ function Navbar({ handlerClickDark, theme }) {
               </button>
             </li>
             <li className="relative">
-              <a
+              <button
                 onClick={() => {
                   menuVisible();
                 }}
                 className="p-3 bg-slate-300/40 rounded-full"
-                href="#user"
               >
                 <FontAwesomeIcon icon={faUser} size="lg" />
-              </a>
+              </button>
               <div
                 className={`${
-                  isMenuOpen ? " top-10 z-50 " : "-top-[1000px] "
+                  isMenuOpen ? "top-10 z-50 " : "-top-[1000px] "
                 } absolute md:right-10 transition-all ease-in-out duration-200 font-semibold bg-slate-500 backdrop-blur-sm w-32 shadow-lg rounded-md p-2`}
               >
                 <ul className=" flex flex-col ">
-                  <li className="hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
-                    Login
+                  <li
+                    onClick={() => {
+                      handlerLogin();
+                      menuVisible();
+                    }}
+                    className="text-xl hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2"
+                  >
+                    <FontAwesomeIcon icon={faUser} size="1x" /> Login
                   </li>
-                  <li className="hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
+                  <li className="text-xl hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
                     Settings
                   </li>
-                  <li className="hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
+                  <li className="text-xl hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
                     Subir
                   </li>
                 </ul>

@@ -12,6 +12,7 @@ export default {
         WitherDark: "#FFFFFF",
         GrayClaroDark: "#B0B0B0",
         AmarilloClaroDark: "#FFD700",
+        Alert: "red",
       },
       textColor: {
         textSubTitleLight: "#000000",

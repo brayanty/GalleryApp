@@ -8,27 +8,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 NavbarMobile.propTypes = {
-  handlerClickDark: PropTypes.func.isRequired,
-  theme: PropTypes.string.isRequired,
-  handlerLogin: PropTypes.func.isRequired,
+  LoginVisible: PropTypes.func.isRequired,
 };
 
-function NavbarMobile() {
+function NavbarMobile({ LoginVisible }) {
+  const items = [
+    { logo: faHome, alt: "home", id: (Math.random() * 1000).toString(36) },
+    {
+      logo: faMagnifyingGlass,
+      alt: "search",
+      id: (Math.random() * 100).toString(36),
+    },
+    {
+      logo: faMessage,
+      alt: "Message",
+      id: (Math.random() * 100).toString(36),
+    },
+    {
+      logo: faUser,
+      alt: "Profile",
+      id: (Math.random() * 100).toString(36),
+      onClick: LoginVisible,
+    },
+  ];
   return (
     <nav className="md:hidden h-12 z-40 fixed right-0 left-0 bottom-0 bg-slate-200 dark:bg-slate-900">
       <ul className="h-full w-full text-black dark:text-white flex flex-row gap-4 justify-around items-center">
-        <li className="after:block after:bg-black dark:after:bg-white after:h-[3px] after:w-0 after:transition-all after:hover:w-[100%]">
-          <FontAwesomeIcon icon={faHome} size="xl" />
-        </li>
-        <li className="after:block after:bg-black dark:after:bg-white after:h-[3px] after:w-0 after:transition-all after:hover:w-[100%]">
-          <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" />
-        </li>
-        <li className="after:block after:bg-black dark:after:bg-white after:h-[3px] after:w-0 after:transition-all after:hover:w-[100%]">
-          <FontAwesomeIcon icon={faMessage} size="xl" />
-        </li>
-        <li className="after:block after:bg-black dark:after:bg-white after:h-[3px] after:w-0 after:transition-all after:hover:w-[100%]">
-          <FontAwesomeIcon icon={faUser} size="xl" />
-        </li>
+        {items.map((item) => (
+          <li className="" key={item.id}>
+            <button onClick={item?.onClick} alt={item.alt}>
+              {<FontAwesomeIcon icon={item.logo} size="2x" />}
+            </button>
+          </li>
+        ))}
       </ul>
     </nav>
   );

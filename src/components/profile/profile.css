@@ -1,0 +1,21 @@
+/* From Uiverse.io by niat786 */ 
+.btn-Followers {
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0.5rem 1rem rgba(143, 142, 142, 0.15) !important;
+  background: #000000;
+}
+
+.followers {
+  font-size: 0.8rem;
+  color: #7f7f7f;
+}
+
+.btn-Followers:hover {
+  background: #2b2a2a;
+}
+
+@keyframes gradient {
+  0% { background-position: left; }
+  100% { background-position: right; }
+}

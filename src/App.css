@@ -30,7 +30,7 @@
 
 body {
   background: var(--background);
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 .nav-items::after{

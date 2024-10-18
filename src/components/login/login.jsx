@@ -5,13 +5,18 @@ import { useRef, useState } from "react";
 
 Login.propTypes = {
   visible: PropTypes.bool.isRequired,
-  handlerLogin: PropTypes.func.isRequired,
+  LoginVisible: PropTypes.func.isRequired,
 };
-function Login({ visible, handlerLogin }) {
+function Login({ visible, LoginVisible }) {
   const formRef = useRef(null);
   const [valideForm, setValideForm] = useState("");
   const [login, setlogin] = useState("login");
 
+  const handlerResetForm = () => {
+    setValideForm("");
+    setlogin("login");
+    LoginVisible();
+  };
   const selectLoginRegister = (select) => {
     setlogin(select);
   };
@@ -39,11 +44,11 @@ function Login({ visible, handlerLogin }) {
 
   return (
     visible && (
-      <div className="z-50 fixed top-0 right-0 left-0 bottom-0 ">
+      <div className="z-50 fixed top-0 right-0 left-0 bottom-0">
         <div className="bg-slate-400/40 dark:bg-slate-500/40 w-full h-full flex justify-center items-center">
           <div className="relative flex flex-col gap-2 justify-evenly items-center bg-slate-50 dark:bg-slate-900 h-[500px] w-[500px] rounded-md p-2">
             <button
-              onClick={() => handlerLogin()}
+              onClick={() => handlerResetForm()}
               className="absolute top-2 right-3"
             >
               <FontAwesomeIcon
@@ -72,7 +77,7 @@ function Login({ visible, handlerLogin }) {
               action=""
               method="post"
             >
-              <fieldset className="flex flex-col justify-center items-center gap-2">
+              <fieldset className="flex flex-col justify-center items-center gap-4">
                 <div className="w-full flex flex-col flex-wrap gap-2">
                   {login == "register" && (
                     <label
@@ -163,7 +168,7 @@ function Login({ visible, handlerLogin }) {
                 </div>
               </fieldset>
             </form>
-            <div className="absolute bottom-0 p-2 flex flex-row justify-self-end gap-3 text-black dark:text-WitherDark">
+            <div className="absolute bottom-0 p-2 flex flex-row items-end justify-self-end gap-3 text-black dark:text-WitherDark">
               {login == "login" ? (
                 <button
                   onClick={() => {

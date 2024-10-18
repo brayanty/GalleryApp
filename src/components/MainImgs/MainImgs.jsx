@@ -4,13 +4,15 @@ import { RenderCard } from "../resources/resources.jsx";
 import PropTypes from "prop-types";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import InfiniteScroll from "react-infinite-scroll-component";
+import "./mainImgs.css";
 
 MainImgs.propTypes = {
   handlerSelect: PropTypes.func.isRequired,
+  handlerUserView: PropTypes.func.isRequired,
 };
 
-function MainImgs({ handlerSelect }) {
-  const [indexTotal, setIndexCurrent] = useState(20);
+function MainImgs({ handlerSelect, handlerUserView }) {
+  const [indexTotal, setIndexCurrent] = useState(10);
   const refMain = useRef();
   const masonryRef = useRef();
 
@@ -52,10 +54,11 @@ function MainImgs({ handlerSelect }) {
 
     handlerSelect(img);
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    const a = document.createElement("a");
+    a.href = "#viewImagen";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
@@ -77,6 +80,7 @@ function MainImgs({ handlerSelect }) {
                   foto={foto}
                   index={i}
                   handlerClick={handlerClick}
+                  handlerUserView={handlerUserView}
                 />
               ))}
             </Masonry>

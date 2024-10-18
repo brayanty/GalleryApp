@@ -1,26 +1,25 @@
 import {
-  faBars,
+  faGear,
   faHome,
   faMoon,
   faSun,
+  faUpload,
   faUser,
   faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import { useState } from "react";
-import { RenderSearch } from "../resources/resources";
 import { useMenu } from "./useCustom.js";
 
 Navbar.propTypes = {
   handlerClickDark: PropTypes.func.isRequired,
   theme: PropTypes.string.isRequired,
-  handlerLogin: PropTypes.func.isRequired,
+  LoginVisible: PropTypes.func.isRequired,
+  uploadImgVisible: PropTypes.func.isRequired,
 };
 
-function Navbar({ handlerClickDark, theme, handlerLogin }) {
+function Navbar({ handlerClickDark, theme, LoginVisible, uploadImgVisible }) {
   const [isMenuOpen, setIsMenuOpen, menuRef] = useMenu();
-  const [navOpen, setNavOpen] = useState(false);
   const itemsNavbar = [
     {
       title: "Home",
@@ -39,9 +38,6 @@ function Navbar({ handlerClickDark, theme, handlerLogin }) {
   const menuVisible = () => {
     setIsMenuOpen((prenVent) => !prenVent);
   };
-  const handlerClickNav = () => {
-    setNavOpen((prenVent) => !prenVent);
-  };
 
   return (
     <nav className="bg-slate-200 dark:bg-slate-900">
@@ -49,16 +45,11 @@ function Navbar({ handlerClickDark, theme, handlerLogin }) {
         <div>
           <h4 className="text-lg">Gallery-APP</h4>
         </div>
-        <RenderSearch />
         <div
           ref={menuRef}
-          className={`${
-            navOpen == true
-              ? "max-md:opacity-100 max-md:z-50"
-              : "max-md:opacity-0 max-md:-z-10"
-          } md:z-50 transition-opacity duration-300 ease-in-out max-md:absolute max-md:py-5 max-md:pb-3 max-md:bg-slate-200/90 max-md:dark:bg-slate-900/70 backdrop-blur-sm top-[70px] right-0 left-0 max-md:flex-col flex flex-row gap-3`}
+          className={`max-md:hidden md:z-50 transition-opacity duration-300 ease-in-out max-md:absolute max-md:py-5 max-md:pb-3 max-md:bg-slate-200/90 max-md:dark:bg-slate-900/70 backdrop-blur-sm top-[70px] right-0 left-0 max-md:flex-col flex flex-row gap-3`}
         >
-          <ul className="max-md:flex-col flex flex-row gap-4 justify-center items-center">
+          <ul className=" flex flex-row gap-4 justify-center items-center">
             {itemsNavbar.map((items) => {
               return (
                 <li
@@ -98,37 +89,30 @@ function Navbar({ handlerClickDark, theme, handlerLogin }) {
               <div
                 className={`${
                   isMenuOpen ? "top-10 z-50 " : "-top-[1000px] "
-                } absolute md:right-10 transition-all ease-in-out duration-200 font-semibold bg-slate-500 backdrop-blur-sm w-32 shadow-lg rounded-md p-2`}
+                } absolute md:right-10 transition-all ease-in-out duration-200 font-semibold bg-slate-500 backdrop-blur-sm w-[max-content] shadow-lg rounded-md p-2`}
               >
-                <ul className=" flex flex-col ">
+                <ul className="flex flex-col ">
                   <li
                     onClick={() => {
-                      handlerLogin();
+                      LoginVisible();
                       menuVisible();
                     }}
-                    className="text-xl hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2"
+                    className="text-base hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2"
                   >
-                    <FontAwesomeIcon icon={faUser} size="1x" /> Login
+                    <FontAwesomeIcon icon={faUser} /> Login/Register
                   </li>
-                  <li className="text-xl hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
-                    Settings
+                  <li className="text-base hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
+                    <FontAwesomeIcon icon={faGear} /> Settings
                   </li>
-                  <li className="text-xl hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
-                    Subir
+                  <li className="text-base hover:bg-gray-200 rounded-md text-WitherDark hover:text-black cursor-pointer p-2">
+                    <button onClick={uploadImgVisible}>
+                      <FontAwesomeIcon icon={faUpload} /> Subir
+                    </button>
                   </li>
                 </ul>
               </div>
             </li>
           </ul>
-        </div>
-
-        <div
-          className="md:hidden cursor-pointer"
-          onClick={() => {
-            handlerClickNav();
-          }}
-        >
-          <FontAwesomeIcon icon={faBars} size="2xl" />
         </div>
       </div>
     </nav>

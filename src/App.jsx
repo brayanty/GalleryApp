@@ -2,7 +2,7 @@ import "./App.css";
 import Navbar from "./components/navbar/nav";
 import NavbarMobile from "./components/navbar/navMobile";
 import ViewImagen from "./components/viewImagen/viewImagen";
-import MainImgs from "./components/MainImgs/MainImgs";
+import MainImgs from "./components/mainImgs/mainImgs";
 import Footer from "./components/footer/footer";
 import Login from "./components/login/login";
 import UploadImagen from "./components/uploadImg/upload";
@@ -12,21 +12,14 @@ import Profile from "./components/profile/profile";
 import CardMoreUsers from "./components/cardMoreUsers/cardMoreUsers.jsx";
 
 import { useDarkLightMode } from "./components/logic/darkMode";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function App() {
   const [theme, setTheme] = useDarkLightMode();
   const [imagenSelect, setimagenSelect] = useState(" ");
   const [visibleLogin, SetVisibleLogin] = useState(false);
-  const [mobileOn, setMobileOn] = useState(true);
   const [isUploadImg, setUploadImg] = useState(false);
   const [profileView, setProfileView] = useState(" ");
-
-  useEffect(() => {
-    if (window.innerWidth > 768) {
-      setMobileOn(false);
-    }
-  }, []);
 
   const handlerClickDark = () => {
     if (theme === "dark") {
@@ -37,6 +30,7 @@ function App() {
   };
 
   const handlerImagenSelect = (img) => {
+    setProfileView(" ");
     setimagenSelect(img);
   };
 
@@ -49,7 +43,9 @@ function App() {
   };
 
   const handlerUserView = (IdUser) => {
+    setimagenSelect(" ");
     setProfileView(IdUser);
+    
   };
 
   const uploadImgVisible = () => {
@@ -58,23 +54,25 @@ function App() {
 
   return (
     <>
-      {mobileOn ? (
-        <>
+      <div>
+        <div className="md:hidden">
           <NavbarMobile LoginVisible={LoginVisible} />
-        </>
-      ) : (
-        <Navbar
-          theme={theme}
-          handlerClickDark={handlerClickDark}
-          LoginVisible={LoginVisible}
-          selectLogin={selectLogin}
-          uploadImgVisible={uploadImgVisible}
-        />
-      )}
+        </div>
+        <div>
+          <Navbar
+            theme={theme}
+            handlerClickDark={handlerClickDark}
+            LoginVisible={LoginVisible}
+            selectLogin={selectLogin}
+            uploadImgVisible={uploadImgVisible}
+          />
+        </div>
+      </div>
+
       <Profile profileView={profileView} />
       <ViewImagen imagenSelect={imagenSelect} />
-      <div className="grid md:grid-cols-4 grid-cols-1">
-        <div className="col-span-3 w-full">
+      <div className="">
+        <div className="w-full">
           <Tags />
           <MainImgs
             handlerSelect={handlerImagenSelect}
@@ -82,9 +80,9 @@ function App() {
             items={"items"}
           />
         </div>
-        <div className="w-[300px] h-[400px]">
+        {/* <div className="w-[300px] h-[400px]">
           <CardMoreUsers />
-        </div>
+        </div> */}
       </div>
 
       <Footer />

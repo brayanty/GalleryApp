@@ -1,0 +1,17 @@
+/* Estilos personalizados para el scrollbar */
+.mainScroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.mainScroll::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* Color del track */
+}
+
+.mainScroll::-webkit-scrollbar-thumb {
+  background-color: #888; /* Color del thumb */
+  border-radius: 4px; /* Bordes redondeados */
+}
+
+.mainScroll::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Color del thumb al pasar el mouse */
+}

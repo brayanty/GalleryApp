@@ -32,7 +32,7 @@ function NavbarMobile({ LoginVisible }) {
     },
   ];
   return (
-    <nav className="md:hidden h-12 z-40 fixed right-0 left-0 bottom-0 bg-slate-200 dark:bg-slate-900">
+    <nav className="h-12 z-40 fixed right-0 left-0 bottom-0 bg-slate-200 dark:bg-slate-900">
       <ul className="h-full w-full text-black dark:text-white flex flex-row gap-4 justify-around items-center">
         {items.map((item) => (
           <li className="" key={item.id}>

@@ -11,7 +11,7 @@ function Tags() {
     setTagsSelect(e.target.innerText);
   };
   return (
-    <div className="container mx-auto p-3 mb-2">
+    <div className="container mx-auto m-4">
       <nav className="flex gap-3">
         {tags.map((tag) => (
           <div
@@ -26,7 +26,7 @@ function Tags() {
         ))}
       </nav>
     </div>
-  );
+  );1
 }
 
 export default Tags;

@@ -18,6 +18,13 @@ function Profile({ profileView }) {
     if (profileView != " ") {
       const newUser = searchUsers(profileView);
       setUser(newUser);
+      window.scrollTo({
+        top: 80,
+        left: 80,                                                         
+        behavior: "smooth",
+      });
+
+
     }
   }, [profileView]);
 

@@ -2,12 +2,12 @@
 import PropTypes from "prop-types";
 
 Footer.propTypes = {
-  className: PropTypes.string.isRequireds,
+  className: PropTypes.string.isRequired,
 };
 function Footer({ className }) {
   return (
     <main className={className}>
-      <div>Main</div>
+      <div>footer</div>
     </main>
   );
 }

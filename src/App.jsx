@@ -9,7 +9,7 @@ import UploadImagen from "./components/uploadImg/upload";
 import Tags from "./components/tags/tags";
 // import Galery from "./components/miniGalery/galery";
 import Profile from "./components/profile/profile";
-import CardMoreUsers from "./components/cardMoreUsers/cardMoreUsers.jsx";
+// import CardMoreUsers from "./components/cardMoreUsers/cardMoreUsers.jsx";
 
 import { useDarkLightMode } from "./components/logic/darkMode";
 import { useState } from "react";

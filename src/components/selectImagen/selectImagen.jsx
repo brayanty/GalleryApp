@@ -15,6 +15,7 @@ function ViewImagen({ imagenSelect }) {
   const [likeCount, setLikeCount] = useState(0);
   const [favorite, setFavorite] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState(0);
+  console.log(imagenSelect);
 
   if (imagenSelect == " ") {
     return;

@@ -1,32 +1,46 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
 
-const tags = ["Inicio", "Explorar"];
+Tags.propTypes = {
+  items: PropTypes.array,
+  handlerTags: PropTypes.func,
+};
 
-function Tags() {
-  const [tagsSelect, setTagsSelect] = useState(null);
-  if (!tags) {
+function Tags({ items, handlerTags }) {
+  const [tagsSelect, setTagsSelect] = useState("Explorar");
+
+  if (!items) {
     return;
   }
-  const handlerTagsSelect = (e) => {
-    setTagsSelect(e.target.innerText);
+
+  const handlerTagsSelect = (tag) => {
+    setTagsSelect(tag);
+    handlerTags(tag);
   };
+
   return (
     <div className="container mx-auto m-4">
       <nav className="flex gap-3">
-        {tags.map((tag) => (
-          <div
-            onClick={handlerTagsSelect}
-            className={`${
-              tagsSelect === tag ? "border-b-4 border-Blueclaro" : ""
-            } flex cursor-pointer transition-all text-black dark:text-white hover:text-Blue hover:dark:text-Blue font-primarybold`}
-            key={tag}
-          >
-            {tag.charAt(0).toUpperCase() + tag.slice(1)}
-          </div>
-        ))}
+        {items.length === 0 ? (
+          <div>No tags available</div>
+        ) : (
+          items.map((tag) => (
+            <div
+              onClick={() => handlerTagsSelect(tag)}
+              className={`${
+                tagsSelect === tag
+                  ? "border-b-4 border-Blueclaro"
+                  : "border-b-4 border-slate-800 dark:border-white"
+              } border-b-4 flex cursor-pointer transition-all text-black dark:text-white hover:text-Blue hover:dark:text-Blue font-primarybold`}
+              key={tag}
+            >
+              {tag.charAt(0).toUpperCase() + tag.slice(1)}
+            </div>
+          ))
+        )}
       </nav>
     </div>
-  );1
+  );
 }
 
 export default Tags;

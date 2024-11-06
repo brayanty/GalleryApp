@@ -7,11 +7,6 @@ import searchUsers from "../logic/searchUsers";
 import { Outlet, Link } from "react-router-dom";
 
 const handlerUserView = (idUser) => {
-  window.scrollTo({
-    top: 80,
-    left: 80,
-    behavior: "smooth",
-  });
   return "/User/" + idUser;
 };
 
@@ -93,8 +88,8 @@ function RenderUsers({ idUser }) {
         <header className="flex gap-1 justify-around dark:text-white">
           <Link to={handlerUserView(user.id)}>
             {
-              <h4 className="cursor-pointer hover:text-blue-300 font-primaryMedium text-sm max-md:text-xs">
-                {user?.name || "Sin name"}
+              <h4 className="cursor-pointer hover:text-blue-300 font-primarybold text-xs max-md:text-xs">
+                {user?.name || "Anonimo"}
               </h4>
             }
           </Link>

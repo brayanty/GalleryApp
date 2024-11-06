@@ -1,6 +1,7 @@
 // import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
+import { SaveItem } from "../logic/handlerLocalStorage";
 import { useState } from "react";
 import searchUsers from "../logic/searchUsers";
 import { Outlet, Link } from "react-router-dom";
@@ -23,6 +24,10 @@ export function RenderCard({ item, index }) {
   const [loading, setLoading] = useState(true);
   const handleImageLoad = () => {
     setLoading(false);
+  };
+
+  const handlerViewImg = (item) => {
+    SaveItem(item.id, item);
   };
 
   const getRowSpan = (index) => {
@@ -48,13 +53,21 @@ export function RenderCard({ item, index }) {
               </div>
             </div>
           )}
-          <img
-            className="w-full h-full rounded-lg object-cover object-center transition-transform ease-in-out duration-300 hover:scale-105"
-            src={item.src}
-            alt={item.alt}
-            onLoad={handleImageLoad}
-            onError={() => setLoading(false)}
-          />
+          <Link
+            onClick={() => {
+              handlerViewImg(item);
+            }}
+            to={`/viewimagen/${item.id}`}
+          >
+            <img
+              className="w-full h-full rounded-lg object-cover object-center transition-transform ease-in-out duration-300 hover:scale-105"
+              src={item.src}
+              alt={item.alt}
+              onLoad={handleImageLoad}
+              onError={() => setLoading(false)}
+            />
+          </Link>
+          <Outlet />
         </figure>
       </div>
       <div className="self-start">
@@ -85,9 +98,9 @@ function RenderUsers({ idUser }) {
               </h4>
             }
           </Link>
+          <Outlet />
         </header>
       </div>
-      <Outlet />
     </div>
   );
 }

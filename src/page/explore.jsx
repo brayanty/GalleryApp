@@ -13,7 +13,6 @@ function Explorer() {
   return (
     <>
       <Tags items={tags} handlerTags={handlerTags} />
-
       <MainImgs items={items} />
       <Footer />
     </>

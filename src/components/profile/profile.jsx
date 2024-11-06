@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
 import "./profile.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 Profile.propTypes = {
   user: PropTypes.object,
@@ -9,7 +11,7 @@ function Profile({ user }) {
   if (user.result) {
     return (
       <>
-        <div className="flex items-center justify-center p-2 bg-gray-100 dark:bg-slate-500/30 ">
+        <div className="relative flex items-center justify-center p-2 bg-gray-100 dark:bg-slate-500/30 ">
           <div className="text-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -61,6 +63,15 @@ function Profile({ user }) {
           </div>
         </div>
         <div className="flex gap-3 justify-center">
+          {/* boton para retroceder */}
+          <div
+            onClick={() => {
+              window.history.back();
+            }}
+            className="left-6 top-3 p-2 rounded-full hover:bg-slate-700/50 transition duration-200"
+          >
+            <FontAwesomeIcon className="h-8 w-8" icon={faArrowLeft} />
+          </div>
           <button
             className="h-12 p-2 text-sm border-none rounded-lg bg-gradient-to-r from-[#bf953f] via-[#fcf6ba] to-[#aa771c] flex items-center justify-center gap-2 text-[#796703] font-primaryMedium transition-all duration-[1s] shadow-[5px_5px_10px_rgba(0,0,0,0.144)] bg-[length:200%_200%] hover:scale-[0.95] hover:bg-right hover:animate-[gradient_3s_ease_infinite]"
             type="button"

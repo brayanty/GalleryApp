@@ -1,4 +1,5 @@
 import {
+  faArrowLeft,
   faBookmark,
   faDownload,
   faHeart,
@@ -10,6 +11,7 @@ import { useState } from "react";
 ViewImagen.propTypes = {
   imagenSelect: PropTypes.object,
 };
+
 function ViewImagen({ imagenSelect }) {
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -50,9 +52,17 @@ function ViewImagen({ imagenSelect }) {
   return (
     <div
       id="viewImagen"
-      className="container w-full h-full mx-auto flex justify-center"
+      className="relative container mx-auto flex justify-center"
     >
-      <div className="w-full h-full p-4 md:m-2 flex flex-col gap-3 bg-transparent md:shadow-md md:shadow-black rounded-lg">
+      <div
+        onClick={() => {
+          window.history.back();
+        }}
+        className="absolute left-6 top-3 p-2 rounded-full hover:bg-slate-700/50 transition duration-200"
+      >
+        <FontAwesomeIcon className="h-8 w-8" icon={faArrowLeft} />
+      </div>
+      <div className="min-w-[70vw] p-5 pl-10 pr-10 m-2 flex flex-col gap-3 bg-transparent md:shadow-md md:shadow-black rounded-lg">
         <figure className="max-md:h-full h-[70vh] w-auto md:col-span-2 max-md:row-span-3">
           <img
             className="w-full h-full object-scale-down max-md:object-cover rounded-3xl overflow-hidden"

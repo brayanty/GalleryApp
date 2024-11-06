@@ -26,7 +26,7 @@ export function RenderCard({ item, index }) {
   };
 
   const getRowSpan = (index) => {
-    return index % 2 === 0 ? "270px" : index % 3 === 0 ? "270px" : "330px";
+    return index % 2 === 0 ? "270px" : index % 3 === 0 ? "350px" : "340px";
   };
 
   return (

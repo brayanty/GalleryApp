@@ -49,7 +49,7 @@ function Profile({ user }) {
           <img
             className="w-full h-full rounded-full object-cover"
             src={user.profile}
-            alt=""
+            alt={user.alt}
           />
         </figure>
       </div>
@@ -68,9 +68,12 @@ function Profile({ user }) {
             onClick={() => {
               window.history.back();
             }}
-            className="left-6 top-3 p-2 rounded-full hover:bg-slate-700/50 transition duration-200"
+            className="h-12 p-2 border-none font-primaryMedium text-sm text-center bg-slate-600 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:bg-slate-500"
           >
-            <FontAwesomeIcon className="h-8 w-8" icon={faArrowLeft} />
+            <FontAwesomeIcon
+              className="h-8 w-8 dark:text-white"
+              icon={faArrowLeft}
+            />
           </div>
           <button
             className="h-12 p-2 text-sm border-none rounded-lg bg-gradient-to-r from-[#bf953f] via-[#fcf6ba] to-[#aa771c] flex items-center justify-center gap-2 text-[#796703] font-primaryMedium transition-all duration-[1s] shadow-[5px_5px_10px_rgba(0,0,0,0.144)] bg-[length:200%_200%] hover:scale-[0.95] hover:bg-right hover:animate-[gradient_3s_ease_infinite]"
@@ -87,7 +90,7 @@ function Profile({ user }) {
             <span>Premiun</span>
           </button>
           <button
-            className="h-12 p-2 border-none font-primaryMedium text-sm text-center text-slate-200 bg-slate-600 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:shadow-lg"
+            className="h-12 p-2 border-none font-primaryMedium text-sm text-center text-slate-200 bg-slate-600 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:bg-slate-500"
             type="button"
           >
             <span>Followers &nbsp; {user.followers}</span>

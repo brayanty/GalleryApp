@@ -1,11 +1,11 @@
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./page/layout";
 import Explore from "./page/explore.jsx";
 import UserView from "./page/userview.jsx";
 import About from "./page/about.jsx";
 import ViewImagen from "./page/viewImagen.jsx";
-
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import NoPage from "./page/noPage.jsx";
+import "./App.css";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
             <Route path="user/*" element={<UserView />} />
             <Route path="viewimagen/*" element={<ViewImagen />} />
             <Route path="about" element={<About />} />
-            {/*<Route path="*" element={<NoPage />} /> */}
+            <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
@@ -26,4 +26,3 @@ function App() {
 }
 
 export default App;
-

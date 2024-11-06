@@ -7,6 +7,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import RenderUsers from "../mainImgs/resources";
 
 ViewImagen.propTypes = {
   imagenSelect: PropTypes.object,
@@ -60,7 +61,10 @@ function ViewImagen({ imagenSelect }) {
         }}
         className="absolute left-6 top-3 p-2 rounded-full hover:bg-slate-700/50 transition duration-200"
       >
-        <FontAwesomeIcon className="h-8 w-8" icon={faArrowLeft} />
+        <FontAwesomeIcon
+          className="h-8 w-8 dark:text-white"
+          icon={faArrowLeft}
+        />
       </div>
       <div className="min-w-[70vw] p-5 pl-10 pr-10 m-2 flex flex-col gap-3 bg-transparent md:shadow-md md:shadow-black rounded-lg">
         <figure className="max-md:h-full h-[70vh] w-auto md:col-span-2 max-md:row-span-3">
@@ -118,16 +122,7 @@ function ViewImagen({ imagenSelect }) {
               </button>
             </div>
           </div>
-          <div className="flex flex-col justify-center gap-10">
-            <div className="flex flex-row gap-1 justify-between items-center">
-              <div className="flex items-center gap-2">
-                <div className="p-4 bg-slate-300 rounded-full"></div>
-                <header className="dark:text-white">
-                  <h4 className="font-primarybold text-xs">Brayan Palacios</h4>
-                </header>
-              </div>
-            </div>
-          </div>
+          <RenderUsers idUser={imagenSelect.idUser} />
         </header>
       </div>
     </div>

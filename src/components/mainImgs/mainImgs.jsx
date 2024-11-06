@@ -37,9 +37,9 @@ function MainImgs({ items }) {
           loader={<h4>Loading...</h4>}
         >
           <ResponsiveMasonry
-            columnsCountBreakPoints={{ 640: 2, 900: 4, 1440: 5 }}
+            columnsCountBreakPoints={{ 640: 2, 900: 3, 1440: 4 }}
           >
-            <Masonry columnsCount={7} gutter="10px" elementType={"ul"}>
+            <Masonry columnsCount={7} gutter="16px" elementType={"ul"}>
               {items.slice(0, indexTotal).map((item, i) => (
                 <RenderCard
                   key={item.id + i + item.title}

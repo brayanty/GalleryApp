@@ -19,7 +19,7 @@ function ViewImagen({ imagenSelect }) {
   const [favorite, setFavorite] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState(0);
 
-  if (imagenSelect == " ") {
+  if (!imagenSelect) {
     return;
   }
 

@@ -6,10 +6,6 @@ import { useState } from "react";
 import searchUsers from "../logic/searchUsers";
 import { Outlet, Link } from "react-router-dom";
 
-const handlerUserView = (idUser) => {
-  return "/User/" + idUser;
-};
-
 RenderCard.propTypes = {
   item: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
@@ -26,7 +22,7 @@ export function RenderCard({ item, index }) {
   };
 
   const getRowSpan = (index) => {
-    return index % 2 === 0 ? "270px" : index % 3 === 0 ? "350px" : "340px";
+    return index % 2 === 0 ? "270px" : index % 5 === 0 ? "450px" : "300px";
   };
 
   return (
@@ -81,17 +77,16 @@ RenderUsers.propTypes = {
 
 function RenderUsers({ idUser }) {
   const user = searchUsers(idUser);
+
   return (
     <div className="self-start flex flex-col items-center justify-center">
       <div className="flex gap-1 justify-center items-center">
         <div className="p-4 bg-slate-300 rounded-full"></div>
         <header className="flex gap-1 justify-around dark:text-white">
-          <Link to={handlerUserView(user.id)}>
-            {
-              <h4 className="cursor-pointer hover:text-blue-300 font-primarybold text-xs max-md:text-xs">
-                {user?.name || "Anonimo"}
-              </h4>
-            }
+          <Link to={`/User/${user?.id || "anonimo"}`}>
+            <h4 className="cursor-pointer hover:text-blue-300 font-primarybold text-xs max-md:text-xs">
+              {user?.name || "Anonimo"}
+            </h4>
           </Link>
           <Outlet />
         </header>

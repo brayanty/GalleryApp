@@ -58,7 +58,7 @@ function Navbar({ handlerClickDark, theme, LoginVisible, uploadImgVisible }) {
                     key={items.id}
                     className="after:block after:bg-black dark:after:bg-white after:h-[3px] after:w-0 after:transition-all after:hover:w-[100%]"
                   >
-                    <FontAwesomeIcon icon={items.logo} size="1x" />
+                    <FontAwesomeIcon icon={items.logo} size="1x" />{" "}
                     <Link to={items.href}>{items.title}</Link>
                   </li>
                 );

@@ -37,7 +37,7 @@ function MainImgs({ items }) {
           loader={<h4>Loading...</h4>}
         >
           <ResponsiveMasonry
-            columnsCountBreakPoints={{ 640: 2, 900: 3, 1440: 4 }}
+            columnsCountBreakPoints={{ 640: 2, 900: 4, 1440: 5 }}
           >
             <Masonry columnsCount={7} gutter="16px" elementType={"ul"}>
               {items.slice(0, indexTotal).map((item, i) => (

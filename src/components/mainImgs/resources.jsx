@@ -40,7 +40,7 @@ export function RenderCard({ item, index }) {
             to={`/viewimagen/${item.id}`}
           >
             <img
-              className="w-full h-full rounded-lg object-cover object-center transition-transform ease-in-out duration-300 hover:scale-105"
+              className="w-full h-full rounded-lg object-cover object-center transition-transform ease-in-out duration-200 hover:scale-105"
               src={item.src}
               alt={item.alt}
               onLoad={() => handleImageLoad(false)}

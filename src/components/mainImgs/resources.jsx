@@ -18,6 +18,7 @@ export function RenderCard({ item, index }) {
   };
 
   const handlerViewImg = (item) => {
+    window.scrollTo(0, 0);
     SaveItem(item.id, item);
   };
 

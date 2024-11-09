@@ -1,13 +1,20 @@
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import "./profile.css";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import "./profile.css";
 
 Profile.propTypes = {
   user: PropTypes.object,
 };
 
 function Profile({ user }) {
+  const navegate = useNavigate();
+
+  const handleBack = () => {
+    navegate(-1);
+  };
   if (user.result) {
     return (
       <>
@@ -44,6 +51,7 @@ function Profile({ user }) {
           backgroundSize: "cover",
         }}
         className="flex justify-center items-end bg-slate-100 h-[50%] w-full"
+        aria-label="User background image"
       >
         <figure className="p-2 w-32 h-32 bg-white rounded-full shadow-lg overflow-hidden">
           <img
@@ -66,24 +74,27 @@ function Profile({ user }) {
           {/* boton para retroceder */}
           <div
             onClick={() => {
-              window.history.back();
+              handleBack();
             }}
             className="h-12 p-2 border-none font-primaryMedium text-sm text-center bg-slate-600 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:bg-slate-500"
           >
             <FontAwesomeIcon
               className="h-8 w-8 dark:text-white"
               icon={faArrowLeft}
+              aria-hidden="true"
             />
           </div>
           <button
             className="h-12 p-2 text-sm border-none rounded-lg bg-gradient-to-r from-[#bf953f] via-[#fcf6ba] to-[#aa771c] flex items-center justify-center gap-2 text-[#796703] font-primaryMedium transition-all duration-[1s] shadow-[5px_5px_10px_rgba(0,0,0,0.144)] bg-[length:200%_200%] hover:scale-[0.95] hover:bg-right hover:animate-[gradient_3s_ease_infinite]"
             type="button"
+            aria-label="Premium button"
           >
             {" "}
             <svg
               viewBox="0 0 576 512"
               height="1em"
               className="fill-[rgb(121,103,3)]"
+              aria-hidden="true"
             >
               <path d="M309 106c11.4-7 19-19.7 19-34c0-22.1-17.9-40-40-40s-40 17.9-40 40c0 14.4 7.6 27 19 34L209.7 220.6c-9.1 18.2-32.7 23.4-48.6 10.7L72 160c5-6.7 8-15 8-24c0-22.1-17.9-40-40-40S0 113.9 0 136s17.9 40 40 40c.2 0 .5 0 .7 0L86.4 427.4c5.5 30.4 32 52.6 63 52.6H426.6c30.9 0 57.4-22.1 63-52.6L535.3 176c.2 0 .5 0 .7 0c22.1 0 40-17.9 40-40s-17.9-40-40-40s-40 17.9-40 40c0 9 3 17.3 8 24l-89.1 71.3c-15.9 12.7-39.5 7.5-48.6-10.7L309 106z"></path>
             </svg>
@@ -92,6 +103,7 @@ function Profile({ user }) {
           <button
             className="h-12 p-2 border-none font-primaryMedium text-sm text-center text-slate-200 bg-slate-600 rounded-lg shadow-md transition-all duration-300 ease-in-out hover:bg-slate-500"
             type="button"
+            aria-label={`Followers count: ${user.followers}`}
           >
             <span>Followers &nbsp; {user.followers}</span>
           </button>

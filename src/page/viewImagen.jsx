@@ -1,7 +1,10 @@
-import { LoadItem } from "../components/logic/handlerLocalStorage";
+import searchImagen from "../components/logic/searchImagen";
+import {
+  LoadItem,
+  ElimitedItem,
+} from "../components/logic/handlerLocalStorage";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
 import useHandlerTags from "../components/tags/useHandlerTags";
 import SelectImagen from "../components/selectImagen/selectImagen";
 import MainImgs from "../components/mainImgs/mainImgs";
@@ -18,13 +21,15 @@ function ViewImagen() {
     path.toLowerCase().replace("/viewimagen/", "");
 
   // Estado inicial calculado basado en la URL
-  const [imagenSelect, setImagenSelect] = useState(
-    LoadItem(getImagenIdFromPath(location.pathname))
-  );
+  const [imagenSelect, setImagenSelect] = useState();
 
   // Efecto para actualizar `imagenSelect` cuando cambia la URL
   useEffect(() => {
-    setImagenSelect(LoadItem(getImagenIdFromPath(location.pathname)));
+    const newimagen =
+      LoadItem("saveImg") ||
+      searchImagen(getImagenIdFromPath(location.pathname));
+    setImagenSelect(newimagen);
+    ElimitedItem("saveImg");
   }, [location]);
 
   const [items, handlerTags] = useHandlerTags(imgs);

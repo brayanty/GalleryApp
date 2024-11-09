@@ -26,6 +26,7 @@ function UserView() {
   // Efecto para actualizar `userView` cuando cambia la URL
   useEffect(() => {
     setUserSelect(searchUsers(getIdUser(location.pathname)));
+    window.scrollTo(0, 0);
   }, [location]);
 
   return (

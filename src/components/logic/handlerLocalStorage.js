@@ -9,3 +9,7 @@ export function SaveItem(id, data) {
 export function LoadItem(id) {
   return JSON.parse(localStorage.getItem(id));
 }
+
+export function ElimitedItem(id) {
+  localStorage.clear(id);
+}

@@ -2,7 +2,7 @@
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { SaveItem } from "../logic/handlerLocalStorage";
-import useLoaderImage from "@components/hooks/useLoaderImage.js";
+import useLoaderImage from "@components/hooks/useLoaderImage.jsx";
 import searchUsers from "../logic/searchUsers";
 import { Outlet, Link } from "react-router-dom";
 

@@ -1,12 +1,14 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
   faBookmark,
   faDownload,
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { useState } from "react";
+import useLoaderImage from "@components/hooks/useLoaderImage.jsx";
+
 import RenderUsers from "../mainImgs/resources";
 
 ViewImagen.propTypes = {
@@ -18,6 +20,8 @@ function ViewImagen({ imagenSelect }) {
   const [likeCount, setLikeCount] = useState(0);
   const [favorite, setFavorite] = useState(false);
   const [favoriteCount, setFavoriteCount] = useState(0);
+
+  const [loadingRender, loading, handleImageLoad] = useLoaderImage();
 
   if (!imagenSelect) {
     return;
@@ -68,10 +72,13 @@ function ViewImagen({ imagenSelect }) {
       </div>
       <div className="min-w-[70vw] p-5 pl-10 pr-10 m-2 flex flex-col gap-3 bg-transparent md:shadow-md md:shadow-black rounded-lg">
         <figure className="max-md:h-full h-[70vh] w-auto md:col-span-2 max-md:row-span-3">
+          {loading && loadingRender}
           <img
             className="w-full h-full object-scale-down max-md:object-cover rounded-3xl overflow-hidden"
             src={imagenSelect?.src}
             alt={imagenSelect?.alt}
+            onLoad={() => handleImageLoad(false)}
+            onError={() => handleImageLoad(true)}
           />
         </figure>
         <header className="flex justify-between flex-col gap-3">

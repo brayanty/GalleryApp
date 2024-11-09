@@ -2,7 +2,7 @@
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { SaveItem } from "../logic/handlerLocalStorage";
-import { useState } from "react";
+import useLoaderImage from "@components/hooks/useLoaderImage.js";
 import searchUsers from "../logic/searchUsers";
 import { Outlet, Link } from "react-router-dom";
 
@@ -12,14 +12,11 @@ RenderCard.propTypes = {
 };
 
 export function RenderCard({ item, index }) {
-  const [loading, setLoading] = useState(true);
-  const handleImageLoad = () => {
-    setLoading(false);
-  };
+  const [loadingRender, loading, handleImageLoad] = useLoaderImage();
 
   const handlerViewImg = (item) => {
     window.scrollTo(0, 0);
-    SaveItem(item.id, item);
+    SaveItem("saveImg", item);
   };
 
   const getRowSpan = (index) => {
@@ -35,16 +32,7 @@ export function RenderCard({ item, index }) {
           className="cursor-pointer"
           style={{ height: getRowSpan(index), width: "100%" }}
         >
-          {loading && (
-            <div className="absolute p-4 inset-0 flex items-center justify-center">
-              <div className="lds-ellipsis">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          )}
+          {loading && loadingRender}
           <Link
             onClick={() => {
               handlerViewImg(item);
@@ -55,8 +43,8 @@ export function RenderCard({ item, index }) {
               className="w-full h-full rounded-lg object-cover object-center transition-transform ease-in-out duration-300 hover:scale-105"
               src={item.src}
               alt={item.alt}
-              onLoad={handleImageLoad}
-              onError={() => setLoading(false)}
+              onLoad={() => handleImageLoad(false)}
+              onError={() => handleImageLoad(true)}
             />
           </Link>
           <Outlet />
